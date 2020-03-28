@@ -1,0 +1,14 @@
+canvas{
+    display: block;
+    background-image: url(ikony/pozadie.png);
+    margin-left: 30%;
+    
+}
+
+body{
+    background: rgb(44, 59, 59);
+}
+
+h1{
+    border: black solid 2px;
+}
