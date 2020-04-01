@@ -1,31 +1,42 @@
 const IMAGES = [
     {name: 'Boat', src: 'ikony/lod.png'},
     {name: 'stone', src: 'ikony/skala.png'},
-//    {name: 'miniWood', src: 'ikony/mini drevo.png'},
+    {name: 'miniWood', src: 'ikony/mini drevo.png'},
 //    {name: 'wood', src: 'ikony/drevo.png'},
     {name: 'back', src: 'ikony/pozadie.png'},
 ];
 
 var poloha = [5, 130, 255, 380];
-var x = poloha[Math.round(Math.random()*3)];
+
+var keys = {};
+
+window.onkeypress = function(event) {
+    keys[event.keyCode] = true;
+}
+/*window.onkeup = function(event) {
+    keys[event.keyCode] = false;
+    
+}*/
 class Boat {
     
-
     constructor() {
         this.canvas = document.getElementById("canvas");
         this.image = resourceManager.getImageSource('Boat');
 
-        this.x = x;      
+        this.x = poloha[Math.round(Math.random()*3)];;      
         this.y = 425; 
         this.width = 100;
         this.height = 125;
-        this.a = event.keyCode;
+      //  this.a = event.keyCode;
     };
 
-    move() {
-        document.onkeydown = function() {
-          //  this.a = event.keyCode;
-            switch(this.a) {
+    move = function() {
+        if(keys [37] && this.x != 10) this.x -= 125;
+        if(keys [39] && this.x != 385) this.x += 125;
+     /*   document.addEventListener("onkeypress", moveBoat(event));
+        function moveBoat(event) {
+            var a = event.keyCode;
+            switch(a) {
                 case 37: { 
                     if(this.x != 10) 
                     this.x -= 125; 
@@ -34,23 +45,63 @@ class Boat {
                     if(this.x != 385) 
                     this.x += 125;
                     break; }
-            } 
-        }
-        
+            };
+        };*/
     };
 
     draw (ctx) {
         ctx.save();
-     //   ctx.translate(this.x, this.y);
-     //  ctx.scale(this.width, this.height);
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         ctx.restore();
     };
 };
 
-/*lass Obstacles {
-    constructor
-}*/
+class Stone {
+    constructor() {
+        this.canvas = document.getElementById("canvas");
+        this.image = resourceManager.getImageSource('stone');
+
+        this.x = poloha[Math.round(Math.random()*3)];
+        this.y = -50; 
+        this.width = 120;
+        this.height = 100;
+
+        this.moveY = 5;
+    }
+
+    move(dt) {
+        this.y += this.moveY * dt; // neskor podla dlzky hrania hry treba zrychlit 
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx.restore();
+    }
+
+}
+
+class MiniWood {
+    constructor() {
+        this.canvas = document.getElementById("canvas");
+        this.image = resourceManager.getImageSource('miniWood');
+
+        this.x = poloha[Math.round(Math.random()*3)];
+        this.y = -50; 
+        this.width = 120;
+        this.height = 70;
+
+        this.moveY = 10;
+    }
+    move(dt) {
+        this.y += this.moveY * dt; // neskor podla dlzky hrania hry treba zrychlit 
+    }
+    draw(ctx) {
+        ctx.save();
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx.restore();
+    }
+}
 
 class ResourceManager {
     loadedImages = new Map();
@@ -103,6 +154,9 @@ class Game {
 
         this.bgImage = resourceManager.getImageSource('back');
 
+        
+        this.objects.push(new Stone());
+        this.objects.push(new MiniWood());
         this.objects.push(new Boat());
 
         this.startLoop() ;
