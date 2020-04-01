@@ -7,4 +7,5 @@ hra.js -> vypracované po úlohy z 5. cvičenia
   -> škaredý neporiadok bez classov
   
 hraprepis.js -> snaha o prepísanie do classov podľa zdielaného kódu
-  -> zatiaľ iba načítanie pozadia a hráča - lode na náhodnej pozícii 
+  -> načítanie pozadia, hráča - lode na náhodnej pozícii zo 4, 
+  -> dve prekážky, náhodná pozícia, pohyb
